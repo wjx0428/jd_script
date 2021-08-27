@@ -8,17 +8,17 @@
 ============Quantumultx===============
 [task_local]
 #获取互助码
-20 13 * * 6 https://gitee.com/lxk0301/jd_scripts/raw/master/jd_get_share_code.js, tag=获取互助码, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
+20 13 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_get_share_code.js, tag=获取互助码, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
 
 ================Loon==============
 [Script]
-cron "20 13 * * 6" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_get_share_code.js, tag=获取互助码
+cron "20 13 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_get_share_code.js, tag=获取互助码
 
 ===============Surge=================
-获取互助码 = type=cron,cronexp="20 13 * * 6",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_get_share_code.js
+获取互助码 = type=cron,cronexp="20 13 * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_get_share_code.js
 
 ============小火箭=========
-获取互助码 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_get_share_code.js, cronexpr="20 13 * * 6", timeout=3600, enable=true
+获取互助码 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_get_share_code.js, cronexpr="20 13 * * *", timeout=3600, enable=true
  */
 const $ = new Env("获取互助码");
 const JD_API_HOST = "https://api.m.jd.com/client.action";
