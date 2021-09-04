@@ -6,14 +6,14 @@
 ============Quantumultx===============
 [task_local]
 #送豆得豆
-18 0 * * * https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jd_sendBeans.js, tag=送豆得豆, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
+5 0,12 * * * https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jd_sendBeans.js, tag=送豆得豆, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
 ================Loon==============
 [Script]
-cron "18 0 * * *" script-path=https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jd_sendBeans.js,tag=送豆得豆
+cron "5 0,12 * * *" script-path=https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jd_sendBeans.js,tag=送豆得豆
 ===============Surge=================
-送豆得豆 = type=cron,cronexp="45 1,12 * * *",wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jd_sendBeans.js
+送豆得豆 = type=cron,cronexp="5 0,12 * * *",wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jd_sendBeans.js
 ============小火箭=========
-送豆得豆 = type=cron,script-path=https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jd_sendBeans.js, cronexpr="45 1,12 * * *", timeout=3600, enable=true
+送豆得豆 = type=cron,script-path=https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jd_sendBeans.js, cronexpr="5 0,12 * * *", timeout=3600, enable=true
  */
 const $ = new Env('送豆得豆');
 const notify = $.isNode() ? require('./sendNotify') : '';
@@ -37,29 +37,13 @@ if ($.isNode()) {
   $.activityId = '';
   $.completeNumbers = '';
   console.log(`开始获取活动信息`);
-  for (let i = 0; i < cookiesArr.length; i++) {
-    $.cookie = cookiesArr[i];
-    $.UserName = decodeURIComponent($.cookie.match(/pt_pin=([^; ]+)(?=;?)/) && $.cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1]);
-    $.index = i + 1;
-    $.isLogin = true;
-    $.nickName = ''
-    await TotalBean();
-    $.isLoginInfo[$.UserName] = $.isLogin;
-    if (!$.isLogin) {
-      $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/bean/signIndex.action`, {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
-      if ($.isNode()) {
-        await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
-      }
-      continue;
-    }
-    await myReward()
-  }
   for (let i = 0; (cookiesArr.length < 3 ? i < cookiesArr.length : i < 3) && $.activityId === ''; i++) {
     $.cookie = cookiesArr[i];
     $.UserName = decodeURIComponent($.cookie.match(/pt_pin=([^; ]+)(?=;?)/) && $.cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1]);
     $.isLogin = true;
     $.nickName = ''
-    if (!$.isLoginInfo[$.UserName]) continue;
+    await TotalBean();
+    if (!$.isLogin) continue
     await getActivityInfo();
   }
   if ($.activityId === '') {
@@ -76,20 +60,9 @@ if ($.isNode()) {
     $.index = i + 1;
     $.isLogin = true;
     $.nickName = '';
-    if (!$.isLoginInfo[$.UserName]) {
-      await TotalBean();
-      console.log(`\n*****开始【京东账号${$.index}】${$.nickName || $.UserName}*****\n`);
-      $.isLoginInfo[$.UserName] = $.isLogin;
-      if (!$.isLogin) {
-        $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/bean/signIndex.action`, {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
-        if ($.isNode()) {
-          await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
-        }
-        continue;
-      }
-    } else {
-      console.log(`\n*****开始【京东账号${$.index}】${$.nickName || $.UserName}*****\n`);
-    }
+    await TotalBean();
+    console.log(`\n*****开始【京东账号${$.index}】${$.nickName || $.UserName}*****\n`);
+    if (!$.isLogin) continue
     await openTuan();
   }
   console.log('\n开团信息\n'+JSON.stringify($.openTuanList));
@@ -100,16 +73,15 @@ if ($.isNode()) {
     $.UserName = decodeURIComponent($.cookie.match(/pt_pin=([^; ]+)(?=;?)/) && $.cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1]);
     $.index = i + 1;
     $.isLogin = true;
-    if(!$.isLoginInfo[$.UserName]){
-      await TotalBean();
-      $.isLoginInfo[$.UserName] = $.isLogin;
-      if (!$.isLogin) {
-        $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/bean/signIndex.action`, {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
-        if ($.isNode()) {
-          await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
-        }
-        continue;
+    await TotalBean();
+    $.isLoginInfo[$.UserName] = $.isLogin;
+    console.log(`\n*****开始【京东账号${$.index}】${$.nickName || $.UserName}*****\n`);
+    if (!$.isLogin) {
+      $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/bean/signIndex.action`, {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
+      if ($.isNode()) {
+        await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
       }
+      continue;
     }
     await helpMain();
   }
@@ -119,19 +91,20 @@ if ($.isNode()) {
     $.UserName = decodeURIComponent($.cookie.match(/pt_pin=([^; ]+)(?=;?)/) && $.cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1]);
     $.index = i + 1;
     $.isLogin = true;
-    if(!$.isLoginInfo[$.UserName]){
-      await TotalBean();
-      $.isLoginInfo[$.UserName] = $.isLogin;
-      if (!$.isLogin) {
-        $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/bean/signIndex.action`, {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
-        if ($.isNode()) {
-          await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
-        }
-        continue;
-      }
-    }
     console.log(`\n*****开始【京东账号${$.index}】${$.UserName}*****\n`);
+    if (!$.isLoginInfo[$.UserName]) continue
     await rewardMain();
+  }
+  for (let i = 0; i < cookiesArr.length; i++) {
+    $.cookie = cookiesArr[i];
+    $.UserName = decodeURIComponent($.cookie.match(/pt_pin=([^; ]+)(?=;?)/) && $.cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1]);
+    $.index = i + 1;
+    $.isLogin = true;
+    $.nickName = ''
+    await TotalBean();
+    console.log(`\n*****开始【京东账号${$.index}】${$.UserName}*****\n`);
+    if (!$.isLogin) continue
+    await myReward()
   }
 })().catch((e) => {$.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')}).finally(() => {$.done();});
 
@@ -163,9 +136,9 @@ async function getActivityInfo(){
 async function myReward(){
   return new Promise(async (resolve) => {
     let lkt = new Date().getTime()
-    let lks = $.md5('' + 'ztmFUCxcPMNyUq0P' + lkt).toString()
+    let lks = $.md5('' + 'RtKLB8euDo7KwsO0' + lkt).toString()
     let options = {
-      "url": `https://sendbeans.jd.com/common/api/bean/activity/myReward?itemsPerPage=10&currentPage=1&sendType=0&invokeKey=ztmFUCxcPMNyUq0P`,
+      "url": `https://sendbeans.jd.com/common/api/bean/activity/myReward?itemsPerPage=10&currentPage=1&sendType=0&invokeKey=RtKLB8euDo7KwsO0`,
       "headers": {
         "Host": "sendbeans.jd.com",
         "Origin": "https://sendbeans.jd.com",
@@ -186,14 +159,17 @@ async function myReward(){
       try {
         data = JSON.parse(data);
         if (data.success) {
+          let canReward = false
           for (let key of Object.keys(data.datas)) {
             let vo = data.datas[key]
             if (vo.status === 3 && vo.type === 2) {
+              canReward = true
               $.rewardRecordId = vo.id
               await rewardBean()
               $.rewardRecordId = ''
             }
           }
+          if (!canReward) console.log(`没有可领取奖励`)
         }else{
           console.log(JSON.stringify(data));
         }
@@ -209,9 +185,9 @@ async function myReward(){
 async function getActivityList(){
   return new Promise((resolve) => {
     let lkt = new Date().getTime()
-    let lks = $.md5('' + 'ztmFUCxcPMNyUq0P' + lkt).toString()
+    let lks = $.md5('' + 'RtKLB8euDo7KwsO0' + lkt).toString()
     let options = {
-      "url": `https://sendbeans.jd.com/common/api/bean/activity/get/entry/list/by/channel?channelId=14&channelType=H5&sendType=0&singleActivity=false&invokeKey=ztmFUCxcPMNyUq0P`,
+      "url": `https://sendbeans.jd.com/common/api/bean/activity/get/entry/list/by/channel?channelId=14&channelType=H5&sendType=0&singleActivity=false&invokeKey=RtKLB8euDo7KwsO0`,
       "headers": {
         "Host": "sendbeans.jd.com",
         "Origin": "https://sendbeans.jd.com",
@@ -327,9 +303,9 @@ async function rewardMain(){
 async function rewardBean(){
   return new Promise((resolve) => {
     let lkt = new Date().getTime()
-    let lks = $.md5('' + 'ztmFUCxcPMNyUq0P' + lkt).toString()
+    let lks = $.md5('' + 'RtKLB8euDo7KwsO0' + lkt).toString()
     let options = {
-      "url": `https://draw.jdfcloud.com/common/api/bean/activity/sendBean?rewardRecordId=${$.rewardRecordId}&jdChannelId=&userSource=mp&appId=wxccb5c536b0ecd1bf&invokeKey=ztmFUCxcPMNyUq0P`,
+      "url": `https://draw.jdfcloud.com/common/api/bean/activity/sendBean?rewardRecordId=${$.rewardRecordId}&jdChannelId=&userSource=mp&appId=wxccb5c536b0ecd1bf&invokeKey=RtKLB8euDo7KwsO0`,
       "headers":  {
         'content-type' : `application/json`,
         'Connection' : `keep-alive`,
@@ -376,9 +352,9 @@ function getRandomArrayElements(arr, count) {
 async function help() {
   await new Promise((resolve) => {
     let lkt = new Date().getTime()
-    let lks = $.md5('' + 'ztmFUCxcPMNyUq0P' + lkt).toString()
+    let lks = $.md5('' + 'RtKLB8euDo7KwsO0' + lkt).toString()
     let options = {
-      "url": `https://draw.jdfcloud.com/common/api/bean/activity/participate?activityId=${$.activityId}&inviteUserPin=${encodeURIComponent($.oneTuanInfo['user'])}&invokeKey=ztmFUCxcPMNyUq0P&timestap=${Date.now()}`,
+      "url": `https://draw.jdfcloud.com/common/api/bean/activity/participate?activityId=${$.activityId}&inviteUserPin=${encodeURIComponent($.oneTuanInfo['user'])}&invokeKey=RtKLB8euDo7KwsO0&timestap=${Date.now()}`,
       "headers":  {
         'content-type' : `application/json`,
         'Connection' : `keep-alive`,
@@ -416,8 +392,8 @@ async function help() {
 
 async function invite() {
   let lkt = new Date().getTime()
-  let lks = $.md5('' + 'ztmFUCxcPMNyUq0P' + lkt).toString()
-  const url = `https://draw.jdfcloud.com/common/api/bean/activity/invite?openId=oPcgJ4_X7uCMeTgGmar-rmiWst1Y&activityId=${$.activityId}&userSource=mp&formId=123&jdChannelId=&fp=&appId=wxccb5c536b0ecd1bf&invokeKey=ztmFUCxcPMNyUq0P`;
+  let lks = $.md5('' + 'RtKLB8euDo7KwsO0' + lkt).toString()
+  const url = `https://draw.jdfcloud.com/common/api/bean/activity/invite?openId=oPcgJ4_X7uCMeTgGmar-rmiWst1Y&activityId=${$.activityId}&userSource=mp&formId=123&jdChannelId=&fp=&appId=wxccb5c536b0ecd1bf&invokeKey=RtKLB8euDo7KwsO0`;
   const method = `POST`;
   const headers = {
     'content-type' : `application/json`,
@@ -462,8 +438,8 @@ async function invite() {
 
 async function getActivityDetail() {
   let lkt = new Date().getTime()
-  let lks = $.md5('' + 'ztmFUCxcPMNyUq0P' + lkt).toString()
-  const url = `https://draw.jdfcloud.com/common/api/bean/activity/detail?activityId=${$.activityId}&userOpenId=oPcgJ4_X7uCMeTgGmar-rmiWst1Y&timestap=${Date.now()}&userSource=mp&jdChannelId=&appId=wxccb5c536b0ecd1bf&invokeKey=ztmFUCxcPMNyUq0P`;
+  let lks = $.md5('' + 'RtKLB8euDo7KwsO0' + lkt).toString()
+  const url = `https://draw.jdfcloud.com/common/api/bean/activity/detail?activityId=${$.activityId}&userOpenId=oPcgJ4_X7uCMeTgGmar-rmiWst1Y&timestap=${Date.now()}&userSource=mp&jdChannelId=&appId=wxccb5c536b0ecd1bf&invokeKey=RtKLB8euDo7KwsO0`;
   const method = `GET`;
   const headers = {
     'cookie' : $.cookie,
