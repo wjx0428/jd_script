@@ -74,8 +74,6 @@
 #
 40 * * * * node /scripts/jd_jdfactory.js >> /scripts/logs/jd_jdfactory.log 2>&1
 #
-41 0-23/3 * * * node /scripts/jd_zooElecsport.js >> /scripts/logs/jd_zooElecsport.log 2>&1
-#
 0 0-23/1 * * * node /scripts/jd_super_redrain.js >> /scripts/logs/jd_super_redrain.log 2>&1
 #
 10 1 * * * node /scripts/jd_jin_tie.js >> /scripts/logs/jd_jin_tie.log 2>&1
@@ -116,7 +114,7 @@
 #
 16 9,15,17 * * * node /scripts/jd_beauty.js >> /scripts/logs/jd_beauty.log 2>&1
 #
-30 16 * * * node /scripts/jd_try.js >> /scripts/logs/jd_try.log 2>&1
+30 10 * * * node /scripts/jd_try.js >> /scripts/logs/jd_try.log 2>&1
 #
 1 4,10,20 * * * node /scripts/jd_family.js >> /scripts/logs/jd_family.log 2>&1
 #
@@ -150,7 +148,7 @@
 #
 13 3 * * * node /scripts/jd_drawEntrance.js >> /scripts/logs/jd_drawEntrance.log 2>&1
 #
-13 0 * * * node /scripts/jd_superBrand.js >> /scripts/logs/jd_superBrand.log 2>&1
+13 19,21 * * * node /scripts/jd_superBrand.js >> /scripts/logs/jd_superBrand.log 2>&1
 #
 5 0,12 * * * node /scripts/jd_SendBean.js >> /scripts/logs/jd_SendBean.log 2>&1
 #
@@ -193,10 +191,16 @@
 45 2,20 * * * node /scripts/jd_nzmh.js >> /scripts/logs/jd_nzmh.log 2>&1
 #开卡20
 30 8,2 1-21 9 * node /scripts/jd_opencard20.js >> /scripts/logs/jd_opencard20.log 2>&1
-#开卡21
-28 7,20 1-6 9 * node /scripts/jd_opencard21.js >> /scripts/logs/jd_opencard21.log 2>&1
 #开卡22
 34 5,17 3-13 9 * node /scripts/jd_opencard22.js >> /scripts/logs/jd_opencard22.log 2>&1
+#开卡23
+34 4,16 3-10 9 * node /scripts/jd_opencard23.js >> /scripts/logs/jd_opencard23.log 2>&1
+#开卡24
+24 3,18 6-17 9 * node /scripts/jd_opencard24.js >> /scripts/logs/jd_opencard24.log 2>&1
+#开卡25
+24 3,18 6-17 9 * node /scripts/jd_opencard25.js >> /scripts/logs/jd_opencard25.log 2>&1
+#开卡26
+17 2,20 8-30 9 * node /scripts/jd_opencard26.js >> /scripts/logs/jd_opencard26.log 2>&1
 #积分换话费
 43 5,17 * * * node /scripts/jd_dwapp.js >> /scripts/logs/jd_dwapp.log 2>&1
 # 领券中心签到
@@ -211,6 +215,12 @@
 23 0,6,12,21 * * * node /scripts/jd_jxlhb.js >> /scripts/logs/jd_jxlhb.log 2>&1
 #超级直播间盲盒抽京豆
 1 18,20 * * * node /scripts/jd_super_mh.js >> /scripts/logs/jd_super_mh.log 2>&1
+#京东汽车兑换
+0 0 * * * node /scripts/jd_car_exchange.js >> /scripts/logs/jd_car_exchange.log 2>&1
+#心相印
+12 9,15 1-30 9,10 * node /scripts/jd_xinxiangyin.js >> /scripts/logs/jd_xinxiangyin.log 2>&1
+#集卡
+10 7,21 * * * node /scripts/jd_jika.js >> /scripts/logs/jd_jika.log 2>&1
 #早起签到
 1 6,7 * * * python3 /jd/scripts/jd_zqfl.py >> /jd/log/jd_zqfl.log 2>&1
 #
