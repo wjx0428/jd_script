@@ -12,7 +12,7 @@ dir_shell=/ql/shell
 repo1='panghu999_jd_scripts'                       #预设的 panghu999 仓库
 repo2='JDHelloWorld_jd_scripts'                    #预设的 JDHelloWorld 仓库
 repo3='he1pu_JDHelp'                               #预设的 he1pu 仓库
-repo4='shufflewzc_faker2'                          #预设的 shufflewzc 仓库
+repo4='wjx0428'                                    #预设的 shufflewzc 仓库
 repo5='Wenmoux_scripts_wen_chinnkarahoi'           #预设的 Wenmoux 仓库，用于读取口袋书店互助码。需提前拉取温某人的仓库或口袋书店脚本并完整运行。
 repo6='Aaron-lv_sync_jd_scripts'                   #预设的 Aaron-lv 仓库
 repo7='smiek2221_scripts'                          #预设的 smiek2221 仓库
@@ -37,7 +37,7 @@ CLEANBAK_DAYS="2"
 ## 填 0 使用“全部一致互助模板”，所有账户要助力的码全部一致
 ## 填 1 使用“均等机会互助模板”，所有账户获得助力次数一致
 ## 填 2 使用“随机顺序互助模板”，本套脚本内账号间随机顺序助力，每次生成的顺序都不一致。
-HelpType="1"
+HelpType=""
 
 ## 定义指定活动采用指定的互助模板。
 ## 设定值为 DiyHelpType="1" 表示启用功能；不填或填其他内容表示不开启功能。
@@ -139,7 +139,7 @@ name_js=(
   "$repo"_jd_health
   "$repo"_jd_carnivalcity
   "$repo"_jd_city
-  "$repo4"_jd_moneyTree_heip
+  "$repo"_jd_moneyTree_heip
   "$repo"_jd_cfd
 )
 
