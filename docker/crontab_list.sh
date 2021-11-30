@@ -4,7 +4,10 @@
 30 * * * * sh +x /scripts/docker/auto_help.sh collect >> /scripts/logs/auto_help_collect.log 2>&1
 
 ##############活动##############
-
+#饿了么
+35 6 * * * node /scripts/lb_elm.js >> /scripts/logs/lb_elm.log 2>&1
+#美团
+35 6 * * * node /scripts/lb_meituan.js >> /scripts/logs/lb_meituan.log 2>&1
 #宠汪汪
 35 0-23/2 * * * node /scripts/jd_joy.js >> /scripts/logs/jd_joy.log 2>&1
 #宠汪汪兑换
