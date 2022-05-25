@@ -3,14 +3,14 @@
 ============Quantumultx===============
 [task_local]
 #店铺签到
-15 2,14 * * * https://raw.githubusercontent.com/KingRan/JDJB/main/jd_shop_sign.js, tag=店铺签到, enabled=true
+15 2,14 * * * https://raw.githubusercontent.com/KingRan/KR/main/jd_shop_sign.js, tag=店铺签到, enabled=true
 ===========Loon============
 [Script]
-cron "15 2,14 * * *" script-path=https://raw.githubusercontent.com/KingRan/JDJB/main/jd_shop_sign.js,tag=店铺签到
+cron "15 2,14 * * *" script-path=https://raw.githubusercontent.com/KingRan/KR/main/jd_shop_sign.js,tag=店铺签到
 ============Surge=============
-店铺签到 = type=cron,cronexp="15 2,14 * * *",wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/KingRan/JDJB/main/jd_shop_sign.js
+店铺签到 = type=cron,cronexp="15 2,14 * * *",wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/KingRan/KR/main/jd_shop_sign.js
 ===========小火箭========
-店铺签到 = type=cron,script-path=https://raw.githubusercontent.com/KingRan/JDJB/main/jd_shop_sign.jss, cronexpr="15 2,14 * * *", timeout=3600, enable=true
+店铺签到 = type=cron,script-path=https://raw.githubusercontent.com/KingRan/KR/main/jd_shop_sign.jss, cronexpr="15 2,14 * * *", timeout=3600, enable=true
 */
 const $ = new Env('店铺签到');
 const notify = $.isNode() ? require('./sendNotify') : '';
@@ -25,21 +25,33 @@ let vender=''
 let num=0
 let shopname=''
 const token = [
-  "E01FC9BC162CA899E77CA56D91F87752",
-  "113946C00C676DD5141D46EF6194E281",
-  "5DF1538FEA4A1A83CA5EF8C3B59DAE70",
-  "5B4207AEC27389F094DB4596666C1151",
-  "B6D45CBE79819E9EFE01E875B034AE02",
-  "5C7C5EB47593FAFA562F2876249DF657",
-  "06531DBAB0102421286EF4248F7D0098",
-  "D51F2DA5FC5A1BE968E4CA549FC80CF6",
-  "F28F320D6ACF02CFBF9F2718D76DDCDF",
-  "5B1D130E0DFCF521ADA7FE70EEAED263",
-  "9A1F7B49C553A588C559BC127ACD0F06",
-  "27A88D6FC1C01776EE3941D7E6957641",
-  "8F1C4A41222D903AE8A9318A19A3CEBD",
-  "734DCFA4A578505A421F4689012DC75A",
-  "CDB260EE73B60D51DBA5948CBAD8DE5A"
+  "4BE1B58FE1360409A5967CAD1127B5A8",
+  "34864F266AFC02DDB7EEAD5A2AF9B4F7",
+  "7166EF6ED03BA34C3DBBA1ADB27E56C1",
+  "3BA9AEE39889419A46E8784C982C7280",
+  "09947018BD0B4AC7E218519F81551296",
+  "18FB7E1DE514D5E40D880585D4145DEC",
+  "7156E72ACEA65FB5FFCB256A024A2657",
+  "CACEC89AD3A20309748FEC03B0B0C50C",
+  "D881655EDC90A9B4387ACFE495CA3F18",
+  "6359776E10B514A773610D94579BFA3B",
+  "D40F4D162DD53F2CE9F1C48176461634",
+  "3AF4B68A4BB3BD09D371B766E6A1B721",
+  "273EC9E9CA27DFDD85478972A1A0ED6F",
+  "A7DDDEAE3438B27260BDC8B1A555CE6F",
+  "3B27B2B9E70249C339D66F27B7E133F0",
+  "BE26A80288BECA1CAB80B5643CE716B4",
+  "6CB820BAC6C0CD8D1F90C342F0EA1018",
+  "ADF510FDA71E07151B8F8AD4964A5D90",
+  "37F05E334A3F6D36E54E13892CE379A9",
+  "35BA76ED53A953E03F77EE5379C28BE5",
+  "038B83D1D0D374F58821C7EDC4F3B5AE",
+  "0EED5C32E8002D6EF892D3995A0A9AA5",
+  "D5A12069E47F17718EF7E7381444A5FE",
+  "80BD65344753D10B8C61EA2EF4B61946",
+  "501933E61B74CEE450856EDD10AAF7CB",
+  "9F64084BD36FE0EBCDE1EDC956656501",
+  "7516691B34E89137D3C911BBF7D86ACD"
 ]
 
 if ($.isNode()) {
